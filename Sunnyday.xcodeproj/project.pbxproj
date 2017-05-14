@@ -503,6 +503,7 @@
 				B2F1F1551EA6FD1600AED99D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B2F1F1561EA6FD1600AED99D /* Build configuration list for PBXNativeTarget "SunnydayTests" */ = {
 			isa = XCConfigurationList;
@@ -511,6 +512,7 @@
 				B2F1F1581EA6FD1600AED99D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B2F1F1591EA6FD1600AED99D /* Build configuration list for PBXNativeTarget "SunnydayUITests" */ = {
 			isa = XCConfigurationList;
@@ -519,6 +521,7 @@
 				B2F1F15B1EA6FD1600AED99D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
