@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIPageViewControllerDelegate {
 
 
     @IBOutlet weak var currentTemp: UILabel!
@@ -18,12 +18,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var low: UILabel!
     @IBOutlet weak var humidity: UILabel!
     @IBOutlet weak var wind: UILabel!
-    
-
     @IBOutlet weak var imgView: UIImageView!
 
-    
-    
     let forecastUrl:String = "https://api.apixu.com/v1/forecast.json?key=e763d5cf81a040e89b925722171605&q=Philadelphia"
     
     var tempf = 00
@@ -35,23 +31,37 @@ class ViewController: UIViewController {
     var dayHigh = 00
     var dayLow = 00
     
+    //@IBAction func rightSwiper(_ sender: Any) {
+      //  print("Swiped")
+    //}
+    
+    /*@IBAction func RightSwiper(_ sender: Any) {
+    print("swiped right")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "SecondViewController")
+        self.present(controller, animated: true, completion: nil)
+    }*/
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let forecastJson:NSDictionary = getWeatherJson(urlType: forecastUrl)
         print(forecastJson)
         parseWeatherInfo(weatherJson: forecastJson)
         refreshUI()
+        putConditionIcon()
+        // createGradientLayer()
+        
+      
+
+    }
     
+    func putConditionIcon(){
         imgView.image = #imageLiteral(resourceName: "001lighticons-8").withRenderingMode(.alwaysTemplate)
         imgView.tintColor = UIColor.white
-        
-//        let imageName = "ic_wb_sunny_white_48pt.png"
-//        let image = UIImage(named:imageName)
-//        let imageView = UIImageView(image: image!)
-//        imageView.frame = CGRect(x:0, y:0, width:100, height: 200)
-//        self.view.addSubview(imageView)
-        
+
     }
+    
+
     
     func parseWeatherInfo(weatherJson: NSDictionary){
         if let locationDict = weatherJson["location"] as? NSDictionary{
@@ -122,6 +132,16 @@ class ViewController: UIViewController {
         semaphore.wait()
         return weatherJson
     }
+    
+    func createGradientLayer() {
+        var gradientLayer:CAGradientLayer!
+        gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [UIColor(red:0.00, green:0.47, blue:0.57, alpha:1.0).cgColor,
+                                UIColor(red:0.47, green:1.00, blue:0.84, alpha:1.0).cgColor]
+        self.view.layer.addSublayer(gradientLayer)
+    
+    }
 
 }
 
@@ -140,4 +160,27 @@ extension UIImage {
     }
 }
 
+
+class SegueFromRight: UIStoryboardSegue
+{
+    override func perform()
+    {
+        let src = self.source
+        let dst = self.destination
+        
+        src.view.superview?.insertSubview(dst.view, aboveSubview: src.view)
+        dst.view.transform = CGAffineTransform(translationX: -src.view.frame.size.width, y: 0)
+        
+        UIView.animate(withDuration: 0.25,
+                                   delay: 0.0,
+                                   options: UIViewAnimationOptions.curveEaseInOut,
+                                   animations: {
+                                    dst.view.transform = CGAffineTransform(translationX: 0, y: 0)
+        },
+                                   completion: { finished in
+                                    src.present(dst, animated: false, completion: nil)
+        }
+        )
+    }
+}
 
