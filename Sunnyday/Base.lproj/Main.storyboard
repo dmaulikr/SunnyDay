@@ -123,9 +123,6 @@
                                 <exclude reference="JZ3-0V-4o9"/>
                             </mask>
                         </variation>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="1HU-QE-Eqf" appends="YES" id="vnz-UZ-ykm"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="h0v-hB-Cam"/>
                     <connections>
@@ -140,18 +137,13 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="left" id="1HU-QE-Eqf">
-                    <connections>
-                        <action selector="RightSwiper:" destination="BYZ-38-t0r" id="05f-dB-jg4"/>
-                    </connections>
-                </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="28" y="215"/>
+            <point key="canvasLocation" x="-20" y="215"/>
         </scene>
-        <!--View Controller-->
+        <!--Hourly Table View Controller-->
         <scene sceneID="S9Y-1d-UZ5">
             <objects>
-                <viewController storyboardIdentifier="HourlyController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wnE-Z6-L1m" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HourlyController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wnE-Z6-L1m" customClass="HourlyTableViewController" customModule="Sunnyday" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7Ie-04-LdA"/>
                         <viewControllerLayoutGuide type="bottom" id="KT6-St-6aM"/>
@@ -159,17 +151,62 @@
                     <view key="view" contentMode="scaleToFill" id="tw7-dA-XDL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.0" green="1" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="10" rowHeight="69" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Lpa-Aa-LkN">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="69" id="JT6-Hr-gHc" customClass="HourlyTableViewCell" customModule="Sunnyday" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="69"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JT6-Hr-gHc" id="lcH-sM-5Cl">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="68"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dUw-Vz-CBQ">
+                                                    <rect key="frame" x="189" y="0.0" width="64" height="64"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Condition" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Wv-h3-5CL">
+                                                    <rect key="frame" x="8" y="8" width="173" height="52"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqk-eQ-NKK">
+                                                    <rect key="frame" x="261" y="6" width="95" height="52"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="HourlyCondition" destination="8Wv-h3-5CL" id="AJm-3w-1KV"/>
+                                            <outlet property="HourlyIcon" destination="dUw-Vz-CBQ" id="Io8-NY-Arx"/>
+                                            <outlet property="HourlyTemp" destination="bqk-eQ-NKK" id="6p2-qd-cfG"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="wnE-Z6-L1m" id="IY2-4B-XOH"/>
+                                    <outlet property="delegate" destination="wnE-Z6-L1m" id="7Ix-I0-DYb"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MnL-ah-T4K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="764" y="215"/>
+            <point key="canvasLocation" x="764" y="214.54272863568218"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="k7g-8i-Rp7">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="4" navigationOrientation="horizontal" spineLocation="none" id="A3L-U1-e92" customClass="PageViewController" customModule="Sunnyday" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="A3L-U1-e92" customClass="PageViewController" customModule="Sunnyday" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IyZ-wr-ZFG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-719" y="215"/>

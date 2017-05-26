@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		B2908B771ED522C60071E556 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2908B761ED522C60071E556 /* PageViewController.swift */; };
-		B2A36C651ECFE85000296A50 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A36C641ECFE85000296A50 /* SecondViewController.swift */; };
+		B2908B791ED661600071E556 /* HourlyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2908B781ED661600071E556 /* HourlyInfo.swift */; };
+		B2908B7B1ED668CA0071E556 /* HourlyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2908B7A1ED668CA0071E556 /* HourlyTableViewCell.swift */; };
+		B2908B7F1ED7B5500071E556 /* HourlyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2908B7E1ED7B5500071E556 /* HourlyTableViewController.swift */; };
 		B2F1F12F1EA6FD1600AED99D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F1F12E1EA6FD1600AED99D /* AppDelegate.swift */; };
 		B2F1F1311EA6FD1600AED99D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F1F1301EA6FD1600AED99D /* ViewController.swift */; };
 		B2F1F1341EA6FD1600AED99D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2F1F1321EA6FD1600AED99D /* Main.storyboard */; };
@@ -37,7 +39,9 @@
 
 /* Begin PBXFileReference section */
 		B2908B761ED522C60071E556 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
-		B2A36C641ECFE85000296A50 /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecondViewController.swift; path = ../SecondViewController.swift; sourceTree = "<group>"; };
+		B2908B781ED661600071E556 /* HourlyInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HourlyInfo.swift; sourceTree = "<group>"; };
+		B2908B7A1ED668CA0071E556 /* HourlyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HourlyTableViewCell.swift; sourceTree = "<group>"; };
+		B2908B7E1ED7B5500071E556 /* HourlyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HourlyTableViewController.swift; sourceTree = "<group>"; };
 		B2F1F12B1EA6FD1600AED99D /* Sunnyday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sunnyday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2F1F12E1EA6FD1600AED99D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2F1F1301EA6FD1600AED99D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -103,12 +107,14 @@
 			children = (
 				B2F1F12E1EA6FD1600AED99D /* AppDelegate.swift */,
 				B2F1F1301EA6FD1600AED99D /* ViewController.swift */,
-				B2A36C641ECFE85000296A50 /* SecondViewController.swift */,
 				B2F1F1321EA6FD1600AED99D /* Main.storyboard */,
+				B2908B7A1ED668CA0071E556 /* HourlyTableViewCell.swift */,
+				B2908B781ED661600071E556 /* HourlyInfo.swift */,
 				B2908B761ED522C60071E556 /* PageViewController.swift */,
 				B2F1F1351EA6FD1600AED99D /* Assets.xcassets */,
 				B2F1F1371EA6FD1600AED99D /* LaunchScreen.storyboard */,
 				B2F1F13A1EA6FD1600AED99D /* Info.plist */,
+				B2908B7E1ED7B5500071E556 /* HourlyTableViewController.swift */,
 			);
 			path = Sunnyday;
 			sourceTree = "<group>";
@@ -265,9 +271,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2A36C651ECFE85000296A50 /* SecondViewController.swift in Sources */,
+				B2908B7F1ED7B5500071E556 /* HourlyTableViewController.swift in Sources */,
 				B2F1F1311EA6FD1600AED99D /* ViewController.swift in Sources */,
+				B2908B791ED661600071E556 /* HourlyInfo.swift in Sources */,
 				B2F1F12F1EA6FD1600AED99D /* AppDelegate.swift in Sources */,
+				B2908B7B1ED668CA0071E556 /* HourlyTableViewCell.swift in Sources */,
 				B2908B771ED522C60071E556 /* PageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

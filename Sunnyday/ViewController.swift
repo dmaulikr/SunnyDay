@@ -9,8 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController, UIPageViewControllerDelegate {
-
-
+    
     @IBOutlet weak var currentTemp: UILabel!
     @IBOutlet weak var currentForecast: UILabel!
     @IBOutlet weak var city: UILabel!
@@ -19,7 +18,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate {
     @IBOutlet weak var humidity: UILabel!
     @IBOutlet weak var wind: UILabel!
     @IBOutlet weak var imgView: UIImageView!
-
+    
     let forecastUrl:String = "https://api.apixu.com/v1/forecast.json?key=e763d5cf81a040e89b925722171605&q=Philadelphia"
     
     var tempf = 00
@@ -31,16 +30,6 @@ class ViewController: UIViewController, UIPageViewControllerDelegate {
     var dayHigh = 00
     var dayLow = 00
     
-    //@IBAction func rightSwiper(_ sender: Any) {
-      //  print("Swiped")
-    //}
-    
-    /*@IBAction func RightSwiper(_ sender: Any) {
-    print("swiped right")
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "SecondViewController")
-        self.present(controller, animated: true, completion: nil)
-    }*/
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,19 +38,18 @@ class ViewController: UIViewController, UIPageViewControllerDelegate {
         parseWeatherInfo(weatherJson: forecastJson)
         refreshUI()
         putConditionIcon()
-        // createGradientLayer()
+        createGradientLayer()
         
-      
-
+        
     }
     
     func putConditionIcon(){
         imgView.image = #imageLiteral(resourceName: "001lighticons-8").withRenderingMode(.alwaysTemplate)
         imgView.tintColor = UIColor.white
-
+        
     }
     
-
+    
     
     func parseWeatherInfo(weatherJson: NSDictionary){
         if let locationDict = weatherJson["location"] as? NSDictionary{
@@ -84,10 +72,12 @@ class ViewController: UIViewController, UIPageViewControllerDelegate {
                     dayLow = Int(day["mintemp_f"] as! NSNumber)
                 }
             }
-            
         }
-
+        
+        
     }
+    
+    
     
     func refreshUI(){
         currentTemp.text = String(tempf)
@@ -102,11 +92,9 @@ class ViewController: UIViewController, UIPageViewControllerDelegate {
     
     func getWeatherJson(urlType: String) -> NSDictionary{
         let semaphore = DispatchSemaphore(value: 0)
-    
         let requestURL: NSURL = NSURL(string: urlType)!
         let urlRequest: NSMutableURLRequest = NSMutableURLRequest(url: requestURL as URL)
         let session = URLSession.shared
-        //var weatherJson = [String:AnyObject]()
         var weatherJson = NSDictionary()
         let task = session.dataTask(with: urlRequest as URLRequest){
             (data, response, error) -> Void in
@@ -116,12 +104,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate {
             if(statusCode == 200){
                 print("Data received")
                 do{
-                    //weatherJson = try JSONSerialization.jsonObject(with: data!) as! [String: AnyObject]
                     weatherJson = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
-                    //print(json as Any)
-                    //let current = json?["current"]
-                    //let location = json?["location"]
-                    
                 }catch {
                     print("Error with Json: \(error)")
                 }
@@ -140,47 +123,27 @@ class ViewController: UIViewController, UIPageViewControllerDelegate {
         gradientLayer.colors = [UIColor(red:0.00, green:0.47, blue:0.57, alpha:1.0).cgColor,
                                 UIColor(red:0.47, green:1.00, blue:0.84, alpha:1.0).cgColor]
         self.view.layer.addSublayer(gradientLayer)
+        
+    }
     
-    }
-
-}
-
-
-extension UIImage {
-    func resizeImage(newWidth: CGFloat) -> UIImage {
-        
-        let scale = newWidth / self.size.width
-        let newHeight = self.size.height * scale
-        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
-        self.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return newImage!
-    }
-}
+    
+    
+    
+} // end of class
 
 
-class SegueFromRight: UIStoryboardSegue
-{
-    override func perform()
-    {
-        let src = self.source
-        let dst = self.destination
-        
-        src.view.superview?.insertSubview(dst.view, aboveSubview: src.view)
-        dst.view.transform = CGAffineTransform(translationX: -src.view.frame.size.width, y: 0)
-        
-        UIView.animate(withDuration: 0.25,
-                                   delay: 0.0,
-                                   options: UIViewAnimationOptions.curveEaseInOut,
-                                   animations: {
-                                    dst.view.transform = CGAffineTransform(translationX: 0, y: 0)
-        },
-                                   completion: { finished in
-                                    src.present(dst, animated: false, completion: nil)
-        }
-        )
-    }
-}
+/*extension UIImage {
+ func resizeImage(newWidth: CGFloat) -> UIImage {
+ 
+ let scale = newWidth / self.size.width
+ let newHeight = self.size.height * scale
+ UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+ self.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+ let newImage = UIGraphicsGetImageFromCurrentImageContext()
+ UIGraphicsEndImageContext()
+ 
+ return newImage!
+ }
+ }*/
+
 
