@@ -19,7 +19,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate {
     @IBOutlet weak var wind: UILabel!
     @IBOutlet weak var imgView: UIImageView!
     
-    let forecastUrl:String = "https://api.apixu.com/v1/forecast.json?key=e763d5cf81a040e89b925722171605&q=Philadelphia"
+    let forecastUrl:String = "https://api.apixu.com/v1/forecast.json?key=e763d5cf81a040e89b925722171605&q=Seattle"
     
     var tempf = 00
     var humid = 00

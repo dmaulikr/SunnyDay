@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+   
 class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource  {
 
     lazy var pages : [UIViewController] = {

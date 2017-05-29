@@ -14,6 +14,7 @@ class HourlyTableViewCell: UITableViewCell {
     @IBOutlet weak var HourlyCondition: UILabel!
     @IBOutlet weak var HourlyIcon: UIImageView!
     @IBOutlet weak var HourlyTemp: UILabel!
+    @IBOutlet weak var HourlyTime: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

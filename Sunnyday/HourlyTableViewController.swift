@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import Foundation
 
 class HourlyTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var hourlyForecast = NSArray()
-    let forecastUrl:String = "https://api.apixu.com/v1/forecast.json?key=e763d5cf81a040e89b925722171605&q=Philadelphia"
+    let forecastUrl:String = "https://api.apixu.com/v1/forecast.json?key=e763d5cf81a040e89b925722171605&q=Seattle"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,15 +47,39 @@ class HourlyTableViewController: UIViewController, UITableViewDataSource, UITabl
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! HourlyTableViewCell
-        cell.HourlyIcon.image = #imageLiteral(resourceName: "001lighticons-8").withRenderingMode(.alwaysTemplate)
         let hour = hourlyForecast[indexPath.row] as? NSDictionary
         let hourCondition = hour?["condition"] as! NSDictionary
+        let temp = Int((hour?["temp_f"] as? NSNumber)!)
+        let time = (hour?["time"] as! NSString).components(separatedBy: " ")[1]
         cell.HourlyCondition.text = (hourCondition["text"] as! NSString) as String
-        let temp = hour?["temp_f"] as? NSNumber
         cell.HourlyTemp.text = String(describing: temp)
+        cell.HourlyTime.text = getTimeInAmPmFormat(fullTime: time)
+        cell.HourlyIcon.image = #imageLiteral(resourceName: "001lighticons-8").withRenderingMode(.alwaysTemplate)
+        cell.layer.backgroundColor = UIColor(white: 1, alpha: 0.6).cgColor // cell transparency
+        cell.layer.borderWidth = 3
+        cell.layer.borderColor = setBackgroundColor().cgColor  // BACKGROUND
+        tableView.backgroundColor = setBackgroundColor() // BACKGROUND
         return cell
     }
 
-
+    public func setBackgroundColor() -> UIColor{
+        //return UIColor(red:0.00, green:0.80, blue:0.80, alpha:1.0)
+        return UIColor(red:1.00, green:0.40, blue:0.40, alpha:1.0)
+    }
+    
+    
+    public func getTimeInAmPmFormat(fullTime: String) -> String{
+        let time = fullTime.components(separatedBy: ":")[0]
+        let intTime = Int(time)
+        if intTime! < 12{
+            return time.replacingOccurrences(of: "0", with: "") + "AM"
+        }else{
+            if intTime != 12{
+                return String(intTime! - 12) + "PM"
+            }
+            return time + "PM"
+        }
+        
+    }
 
 }
