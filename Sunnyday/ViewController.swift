@@ -37,17 +37,12 @@ class ViewController: UIViewController, UIPageViewControllerDelegate {
         print(forecastJson)
         parseWeatherInfo(weatherJson: forecastJson)
         refreshUI()
-        putConditionIcon()
         createGradientLayer()
         
         
     }
     
-    func putConditionIcon(){
-        imgView.image = #imageLiteral(resourceName: "001lighticons-8").withRenderingMode(.alwaysTemplate)
-        imgView.tintColor = UIColor.white
-        
-    }
+
     
     
     
@@ -63,6 +58,8 @@ class ViewController: UIViewController, UIPageViewControllerDelegate {
             if let cond = currentDict["condition"] as? NSDictionary{
                 condition = cond["text"] as! String
             }
+            imgView.image = setIconForCondition(condition: condition).withRenderingMode(.alwaysTemplate)
+            imgView.tintColor = UIColor.white
         }
         if let forecastDict = weatherJson["forecast"] as? NSDictionary{
             if let forecastDay = forecastDict["forecastday"] as? NSArray{
@@ -120,10 +117,27 @@ class ViewController: UIViewController, UIPageViewControllerDelegate {
         var gradientLayer:CAGradientLayer!
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
-        gradientLayer.colors = [UIColor(red:0.00, green:0.47, blue:0.57, alpha:1.0).cgColor,
-                                UIColor(red:0.47, green:1.00, blue:0.84, alpha:1.0).cgColor]
+        //gradientLayer.colors = [UIColor(red:0.00, green:0.47, blue:0.57, alpha:1.0).cgColor,
+        //                        UIColor(red:0.47, green:1.00, blue:0.84, alpha:1.0).cgColor]
+        gradientLayer.colors = [UIColor(red:0.17, green:0.24, blue:0.31, alpha:1.0).cgColor,
+                                UIColor(red:0.30, green:0.63, blue:0.69, alpha:1.0).cgColor]
+        
         self.view.layer.addSublayer(gradientLayer)
         
+    }
+    
+    func setIconForCondition(condition:String)-> UIImage{
+        if (condition.lowercased().range(of: "partly") != nil){
+            return #imageLiteral(resourceName: "icon-partly_cloudy")
+        }else if (condition.lowercased().range(of: "sunny") != nil){
+            return #imageLiteral(resourceName: "icon-sunny")
+        }else if (condition.lowercased().range(of: "clear") != nil){
+            return #imageLiteral(resourceName: "icon-clear_night")
+        }else if (condition.lowercased().range(of: "cloudy") != nil){
+            return #imageLiteral(resourceName: "icon-cloudy")
+        }else{
+            return #imageLiteral(resourceName: "icon-rainy")
+        }
     }
     
     

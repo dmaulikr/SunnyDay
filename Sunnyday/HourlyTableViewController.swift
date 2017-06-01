@@ -51,11 +51,12 @@ class HourlyTableViewController: UIViewController, UITableViewDataSource, UITabl
         let hourCondition = hour?["condition"] as! NSDictionary
         let temp = Int((hour?["temp_f"] as? NSNumber)!)
         let time = (hour?["time"] as! NSString).components(separatedBy: " ")[1]
-        cell.HourlyCondition.text = (hourCondition["text"] as! NSString) as String
+        let cond = (hourCondition["text"] as! NSString) as String
+        cell.HourlyCondition.text = cond
         cell.HourlyTemp.text = String(describing: temp)
         cell.HourlyTime.text = getTimeInAmPmFormat(fullTime: time)
-        cell.HourlyIcon.image = #imageLiteral(resourceName: "001lighticons-8").withRenderingMode(.alwaysTemplate)
-        cell.layer.backgroundColor = UIColor(white: 1, alpha: 0.6).cgColor // cell transparency
+        cell.HourlyIcon.image = setIconForCondition(condition: cond).withRenderingMode(.alwaysTemplate)
+        cell.layer.backgroundColor = UIColor(white: 1, alpha: 0.05).cgColor // cell transparency
         cell.layer.borderWidth = 3
         cell.layer.borderColor = setBackgroundColor().cgColor  // BACKGROUND
         tableView.backgroundColor = setBackgroundColor() // BACKGROUND
@@ -64,7 +65,8 @@ class HourlyTableViewController: UIViewController, UITableViewDataSource, UITabl
 
     public func setBackgroundColor() -> UIColor{
         //return UIColor(red:0.00, green:0.80, blue:0.80, alpha:1.0)
-        return UIColor(red:1.00, green:0.40, blue:0.40, alpha:1.0)
+        //return UIColor(red:1.00, green:0.40, blue:0.40, alpha:1.0)
+        return UIColor(red:0.17, green:0.26, blue:0.31, alpha:1.0)
     }
     
     
@@ -79,7 +81,21 @@ class HourlyTableViewController: UIViewController, UITableViewDataSource, UITabl
             }
             return time + "PM"
         }
-        
     }
 
+    
+    func setIconForCondition(condition:String)-> UIImage{
+        if (condition.lowercased().range(of: "partly") != nil){
+            return #imageLiteral(resourceName: "icon-partly_cloudy")
+        }else if (condition.lowercased().range(of: "sunny") != nil){
+            return #imageLiteral(resourceName: "icon-sunny")
+        }else if (condition.lowercased().range(of: "clear") != nil){
+            return #imageLiteral(resourceName: "icon-clear_night")
+        }else if (condition.lowercased().range(of: "cloudy") != nil) || (condition.lowercased().range(of: "overcast") != nil){
+            return #imageLiteral(resourceName: "icon-cloudy")
+        }else{
+            return #imageLiteral(resourceName: "icon-rainy")
+        }
+    }
+    
 }
