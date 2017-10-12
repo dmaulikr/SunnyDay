@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="A3L-U1-e92">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="A3L-U1-e92">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -126,14 +126,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="h0v-hB-Cam"/>
                     <connections>
-                        <outlet property="city" destination="8bH-Me-uFC" id="7SN-OY-xFm"/>
-                        <outlet property="currentForecast" destination="9ci-E0-8ob" id="zmc-pi-iJs"/>
-                        <outlet property="currentTemp" destination="m1y-l8-MP2" id="S30-kH-Jlp"/>
-                        <outlet property="high" destination="9QK-Qc-e3e" id="3tp-5d-kYD"/>
-                        <outlet property="humidity" destination="1av-75-gj2" id="FZg-bm-mDv"/>
+                        <outlet property="conditionLabel" destination="9ci-E0-8ob" id="WxU-jO-E9c"/>
+                        <outlet property="currentTempLabel" destination="m1y-l8-MP2" id="FeA-MI-gAP"/>
+                        <outlet property="highTempLabel" destination="9QK-Qc-e3e" id="HjY-lP-sX0"/>
+                        <outlet property="humidityLabel" destination="1av-75-gj2" id="l6s-Xu-JBZ"/>
                         <outlet property="imgView" destination="W6b-EY-0km" id="vE2-Re-x7E"/>
-                        <outlet property="low" destination="067-6l-ocx" id="ECY-L6-Ujx"/>
-                        <outlet property="wind" destination="dUd-tG-bFB" id="EmC-9i-kB7"/>
+                        <outlet property="locationLabel" destination="8bH-Me-uFC" id="Nn9-6T-KHh"/>
+                        <outlet property="lowTempLabel" destination="067-6l-ocx" id="0gx-Z2-qna"/>
+                        <outlet property="windLabel" destination="dUd-tG-bFB" id="0Na-0g-ccD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

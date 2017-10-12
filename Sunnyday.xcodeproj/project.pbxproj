@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B23360411F8F18E100F5605E /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23360401F8F18E100F5605E /* CurrentWeather.swift */; };
 		B2908B771ED522C60071E556 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2908B761ED522C60071E556 /* PageViewController.swift */; };
-		B2908B791ED661600071E556 /* HourlyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2908B781ED661600071E556 /* HourlyInfo.swift */; };
 		B2908B7B1ED668CA0071E556 /* HourlyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2908B7A1ED668CA0071E556 /* HourlyTableViewCell.swift */; };
 		B2908B7F1ED7B5500071E556 /* HourlyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2908B7E1ED7B5500071E556 /* HourlyTableViewController.swift */; };
 		B2F1F12F1EA6FD1600AED99D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F1F12E1EA6FD1600AED99D /* AppDelegate.swift */; };
@@ -38,8 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B23360401F8F18E100F5605E /* CurrentWeather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
 		B2908B761ED522C60071E556 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
-		B2908B781ED661600071E556 /* HourlyInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HourlyInfo.swift; sourceTree = "<group>"; };
 		B2908B7A1ED668CA0071E556 /* HourlyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HourlyTableViewCell.swift; sourceTree = "<group>"; };
 		B2908B7E1ED7B5500071E556 /* HourlyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HourlyTableViewController.swift; sourceTree = "<group>"; };
 		B2F1F12B1EA6FD1600AED99D /* Sunnyday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sunnyday.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,12 +109,12 @@
 				B2F1F1301EA6FD1600AED99D /* ViewController.swift */,
 				B2F1F1321EA6FD1600AED99D /* Main.storyboard */,
 				B2908B7A1ED668CA0071E556 /* HourlyTableViewCell.swift */,
-				B2908B781ED661600071E556 /* HourlyInfo.swift */,
 				B2908B761ED522C60071E556 /* PageViewController.swift */,
 				B2F1F1351EA6FD1600AED99D /* Assets.xcassets */,
 				B2F1F1371EA6FD1600AED99D /* LaunchScreen.storyboard */,
 				B2F1F13A1EA6FD1600AED99D /* Info.plist */,
 				B2908B7E1ED7B5500071E556 /* HourlyTableViewController.swift */,
+				B23360401F8F18E100F5605E /* CurrentWeather.swift */,
 			);
 			path = Sunnyday;
 			sourceTree = "<group>";
@@ -273,9 +273,9 @@
 			files = (
 				B2908B7F1ED7B5500071E556 /* HourlyTableViewController.swift in Sources */,
 				B2F1F1311EA6FD1600AED99D /* ViewController.swift in Sources */,
-				B2908B791ED661600071E556 /* HourlyInfo.swift in Sources */,
 				B2F1F12F1EA6FD1600AED99D /* AppDelegate.swift in Sources */,
 				B2908B7B1ED668CA0071E556 /* HourlyTableViewCell.swift in Sources */,
+				B23360411F8F18E100F5605E /* CurrentWeather.swift in Sources */,
 				B2908B771ED522C60071E556 /* PageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
