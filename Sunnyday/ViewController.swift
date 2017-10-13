@@ -38,7 +38,6 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UITextFiel
         cacheData(forecastJson: forecastJson)
         //print(forecastJson)
         let currentWeather = parseWeatherInfo(weatherJson: forecastJson)
-
         refreshUI(weather: currentWeather)
         
     }

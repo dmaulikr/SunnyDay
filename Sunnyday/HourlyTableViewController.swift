@@ -20,10 +20,13 @@ class HourlyTableViewController: UIViewController, UITableViewDataSource, UITabl
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        getHourlyWeather()
+        
+    }
 
     
     func fetchCache() -> NSDictionary {
-//        let weather: NSDictionary = [:]
         if let weather: NSDictionary = UserDefaults.standard.object(forKey: "weather_data") as! NSDictionary? {
             print("data cached back")
             print(weather)
@@ -73,6 +76,9 @@ class HourlyTableViewController: UIViewController, UITableViewDataSource, UITabl
         cell.layer.borderWidth = 3
         cell.layer.borderColor = setBackgroundColor().cgColor  // BACKGROUND
         tableView.backgroundColor = setBackgroundColor() // BACKGROUND
+        DispatchQueue.main.async {
+            tableView.reloadData()
+        }
         return cell
     }
 
