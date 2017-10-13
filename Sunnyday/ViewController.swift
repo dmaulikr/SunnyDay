@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIPageViewControllerDelegate {
+class ViewController: UIViewController, UIPageViewControllerDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var currentTempLabel: UILabel!
     @IBOutlet weak var conditionLabel: UILabel!
@@ -18,72 +18,66 @@ class ViewController: UIViewController, UIPageViewControllerDelegate {
     @IBOutlet weak var humidityLabel: UILabel!
     @IBOutlet weak var windLabel: UILabel!
     @IBOutlet weak var imgView: UIImageView!
+    @IBOutlet weak var locationTextField: UITextField!
     
-    let forecastUrl:String = "https://api.apixu.com/v1/forecast.json?key=e763d5cf81a040e89b925722171605&q=Seattle"
     
-    var tempf = 00
-    var humid = 00
-    var windMph = 00
-    var windDir = "ABC"
-    var condition = "No Data"
-    var location = "Null Island"
-    var dayHigh = 00
-    var dayLow = 00
-    
+    let forecastUrl:String = "https://api.apixu.com/v1/forecast.json?key=e763d5cf81a040e89b925722171605&q="
+    let defaultLocation = "Seattle"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let forecastJson:NSDictionary = getWeatherJson(urlType: forecastUrl)
-        print(forecastJson)
-        let currentWeather = parseWeatherInfo(weatherJson: forecastJson)
-        refreshUI(weather: currentWeather)
         createGradientLayer()
-        
+        updateWeather(city: defaultLocation)
+        locationTextField.addTarget(self, action: #selector(updateLocation(textField:)), for: .primaryActionTriggered)
         
     }
     
+    func updateWeather(city: String) {
+        let url: String = forecastUrl + city
+        let forecastJson:NSDictionary = getWeatherJson(urlType: url)
+        cacheData(forecastJson: forecastJson)
+        //print(forecastJson)
+        let currentWeather = parseWeatherInfo(weatherJson: forecastJson)
 
+        refreshUI(weather: currentWeather)
+        
+    }
     
+    @objc func updateLocation(textField: UITextField) {
+        textField.resignFirstResponder()
+        print(textField.text!)
+        updateWeather(city: textField.text!)
+    }
     
+    // Hide
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        print(textField.text!)
+        return true
+    }
     
     func parseWeatherInfo(weatherJson: NSDictionary) -> CurrentWeather {
         let currentWeather = CurrentWeather()
-        if let locationDict = weatherJson["location"] as? NSDictionary{
-//            location = locationDict["name"] as! String
+        if let locationDict = weatherJson["location"] as? NSDictionary {
             currentWeather.location = locationDict["name"] as! String
         }
         
-        if let currentDict = weatherJson["current"] as? NSDictionary{
-//            tempf = Int(currentDict["temp_f"] as! NSNumber)
-//            windMph = (Int(currentDict["wind_mph"] as! NSNumber))
-//            windDir = (currentDict["wind_dir"] as? String)!
-//            humid = (Int(currentDict["humidity"] as! NSNumber))
-            
-            currentWeather.temperature = Int(currentDict["temp_f"] as! NSNumber)
-            currentWeather.humidity = (Int(currentDict["humidity"] as! NSNumber))
-            currentWeather.wind_mph = (Int(currentDict["wind_mph"] as! NSNumber))
+        if let currentDict = weatherJson["current"] as? NSDictionary {
+            currentWeather.temperature = Int(truncating: currentDict["temp_f"] as! NSNumber)
+            currentWeather.humidity = (Int(truncating: currentDict["humidity"] as! NSNumber))
+            currentWeather.wind_mph = (Int(truncating: currentDict["wind_mph"] as! NSNumber))
             currentWeather.wind_dir = (currentDict["wind_dir"] as? String)!
-            
-            
-            
-            
-            if let cond = currentDict["condition"] as? NSDictionary{
-//                condition = cond["text"] as! String
+            if let cond = currentDict["condition"] as? NSDictionary {
                 currentWeather.condition = cond["text"] as! String
             }
-            
-//            imgView.image = setIconForCondition(condition: condition).withRenderingMode(.alwaysTemplate)
-//            imgView.tintColor = UIColor.white
         }
         
-        if let forecastDict = weatherJson["forecast"] as? NSDictionary{
-            if let forecastDay = forecastDict["forecastday"] as? NSArray{
+        if let forecastDict = weatherJson["forecast"] as? NSDictionary {
+            if let forecastDay = forecastDict["forecastday"] as? NSArray {
                 let fDay = forecastDay[0] as? NSDictionary
                 if let day = fDay?["day"] as? NSDictionary{
-//                    dayHigh = Int(day["maxtemp_f"] as! NSNumber)
-//                    dayLow = Int(day["mintemp_f"] as! NSNumber)
-                    currentWeather.low_temp = Int(day["mintemp_f"] as! NSNumber)
-                    currentWeather.high_temp = Int(day["maxtemp_f"] as! NSNumber)
+                    currentWeather.low_temp = Int(truncating: day["mintemp_f"] as! NSNumber)
+                    currentWeather.high_temp = Int(truncating: day["maxtemp_f"] as! NSNumber)
                 }
             }
         }
@@ -92,16 +86,13 @@ class ViewController: UIViewController, UIPageViewControllerDelegate {
     }
     
     
+    func cacheData(forecastJson: NSDictionary) {
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(forecastJson, forKey: "weather_data")
+        userDefaults.synchronize()
+    }
     
-    func refreshUI(weather: CurrentWeather ){
-//        currentTempLabel.text = String(tempf)
-//        windLabel.text = String(windMph) + " " + windDir
-//        locationLabel.text = location
-//        conditionLabel.text = condition
-//        humidityLabel.text = String(humid) + "%"
-//        lowTempLabel.text = String(dayLow)
-//        highTempLabel.text = String(dayHigh)
-        
+    func refreshUI(weather: CurrentWeather ) {
         currentTempLabel.text = String(weather.temperature)
         windLabel.text = String(weather.wind_mph) + " " + weather.wind_dir
         locationLabel.text = weather.location
@@ -109,26 +100,24 @@ class ViewController: UIViewController, UIPageViewControllerDelegate {
         humidityLabel.text = String(weather.humidity) + "%"
         lowTempLabel.text = String(weather.low_temp)
         highTempLabel.text = String(weather.high_temp)
-        
-        imgView.image = setIconForCondition(condition: condition).withRenderingMode(.alwaysTemplate)
+        imgView.image = setIconForCondition(condition: weather.condition).withRenderingMode(.alwaysTemplate)
         imgView.tintColor = UIColor.white
-        
     }
     
-    func getWeatherJson(urlType: String) -> NSDictionary{
+    func getWeatherJson(urlType: String) -> NSDictionary {
         let semaphore = DispatchSemaphore(value: 0)
         let requestURL: NSURL = NSURL(string: urlType)!
         let urlRequest: NSMutableURLRequest = NSMutableURLRequest(url: requestURL as URL)
         let session = URLSession.shared
         var weatherJson = NSDictionary()
-        let task = session.dataTask(with: urlRequest as URLRequest){
+        let task = session.dataTask(with: urlRequest as URLRequest) {
             (data, response, error) -> Void in
             let httpResponse = response as! HTTPURLResponse
             let statusCode = httpResponse.statusCode
             
-            if(statusCode == 200){
+            if (statusCode == 200) {
                 print("Data received")
-                do{
+                do {
                     weatherJson = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
                 }catch {
                     print("Error with Json: \(error)")
@@ -145,25 +134,21 @@ class ViewController: UIViewController, UIPageViewControllerDelegate {
         var gradientLayer:CAGradientLayer!
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
-        //gradientLayer.colors = [UIColor(red:0.00, green:0.47, blue:0.57, alpha:1.0).cgColor,
-        //                        UIColor(red:0.47, green:1.00, blue:0.84, alpha:1.0).cgColor]
         gradientLayer.colors = [UIColor(red:0.17, green:0.24, blue:0.31, alpha:1.0).cgColor,
                                 UIColor(red:0.30, green:0.63, blue:0.69, alpha:1.0).cgColor]
-        
         self.view.layer.addSublayer(gradientLayer)
-        
     }
     
-    func setIconForCondition(condition:String)-> UIImage{
-        if (condition.lowercased().range(of: "partly") != nil){
+    func setIconForCondition(condition: String)-> UIImage {
+        if (condition.lowercased().range(of: "partly") != nil) {
             return #imageLiteral(resourceName: "icon-partly_cloudy")
-        }else if (condition.lowercased().range(of: "sunny") != nil){
+        } else if (condition.lowercased().range(of: "sunny") != nil) {
             return #imageLiteral(resourceName: "icon-sunny")
-        }else if (condition.lowercased().range(of: "clear") != nil){
+        } else if (condition.lowercased().range(of: "clear") != nil) {
             return #imageLiteral(resourceName: "icon-clear_night")
-        }else if (condition.lowercased().range(of: "cloudy") != nil){
+        } else if (condition.lowercased().range(of: "cloudy") != nil) {
             return #imageLiteral(resourceName: "icon-cloudy")
-        }else{
+        } else {
             return #imageLiteral(resourceName: "icon-rainy")
         }
     }

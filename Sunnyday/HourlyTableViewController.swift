@@ -12,18 +12,33 @@ import Foundation
 class HourlyTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var hourlyForecast = NSArray()
-    let forecastUrl:String = "https://api.apixu.com/v1/forecast.json?key=e763d5cf81a040e89b925722171605&q=Seattle"
+//    let forecastUrl:String = "https://api.apixu.com/v1/forecast.json?key=e763d5cf81a040e89b925722171605&q=Seattle"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         getHourlyWeather()
+        
+    }
+    
+
+    
+    func fetchCache() -> NSDictionary {
+//        let weather: NSDictionary = [:]
+        if let weather: NSDictionary = UserDefaults.standard.object(forKey: "weather_data") as! NSDictionary? {
+            print("data cached back")
+            print(weather)
+            return weather
+        }
+        return [:]
     }
     
     func getHourlyWeather(){
-        let vc = ViewController()
-        let weatherJson = vc.getWeatherJson(urlType: forecastUrl)
-        if let forecastDict = weatherJson["forecast"] as? NSDictionary{
-            if let forecastDay = forecastDict["forecastday"] as? NSArray{
+        //let vc = ViewController()
+        //let weatherJson = vc.getWeatherJson(urlType: forecastUrl)
+        let forecast = fetchCache()
+        print(forecast)
+        if let forecast = fetchCache()["forecast"] as? NSDictionary {
+            if let forecastDay = forecast["forecastday"] as? NSArray{
                 let fDay = forecastDay[0] as? NSDictionary
                 if let hour = fDay?["hour"] as? NSArray{
                     print("hourly received")
@@ -31,9 +46,7 @@ class HourlyTableViewController: UIViewController, UITableViewDataSource, UITabl
                     hourlyForecast = hour
                 }
             }
-            
         }
-        
         
     }
 
@@ -41,7 +54,7 @@ class HourlyTableViewController: UIViewController, UITableViewDataSource, UITabl
     
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return hourlyForecast.count //thorwing error iin here
+        return hourlyForecast.count 
     }
     
     
@@ -49,7 +62,7 @@ class HourlyTableViewController: UIViewController, UITableViewDataSource, UITabl
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! HourlyTableViewCell
         let hour = hourlyForecast[indexPath.row] as? NSDictionary
         let hourCondition = hour?["condition"] as! NSDictionary
-        let temp = Int((hour?["temp_f"] as? NSNumber)!)
+        let temp = Int(truncating: (hour?["temp_f"] as? NSNumber)!)
         let time = (hour?["time"] as! NSString).components(separatedBy: " ")[1]
         let cond = (hourCondition["text"] as! NSString) as String
         cell.HourlyCondition.text = cond
