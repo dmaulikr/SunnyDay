@@ -64,13 +64,13 @@ class HourlyTableViewController: UIViewController, UITableViewDataSource, UITabl
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! HourlyTableViewCell
         let hour = hourlyForecast[indexPath.row] as? NSDictionary
-        let hourCondition = hour?["condition"] as! NSDictionary
+        let condition = hour?["condition"] as! NSDictionary
         let temp = Int(truncating: (hour?["temp_f"] as? NSNumber)!)
         let time = (hour?["time"] as! NSString).components(separatedBy: " ")[1]
-        let cond = (hourCondition["text"] as! NSString) as String
+        let cond = (condition["text"] as! NSString) as String
         cell.HourlyCondition.text = cond
         cell.HourlyTemp.text = String(describing: temp)
-        cell.HourlyTime.text = getTimeInAmPmFormat(fullTime: time)
+        cell.HourlyTime.text = getTimeIn12HrFormat(fullTime: time)
         cell.HourlyIcon.image = setIconForCondition(condition: cond).withRenderingMode(.alwaysTemplate)
         cell.layer.backgroundColor = UIColor(white: 1, alpha: 0.05).cgColor // cell transparency
         cell.layer.borderWidth = 3
@@ -87,18 +87,21 @@ class HourlyTableViewController: UIViewController, UITableViewDataSource, UITabl
         //return UIColor(red:1.00, green:0.40, blue:0.40, alpha:1.0)
         return UIColor(red:0.17, green:0.26, blue:0.31, alpha:1.0)
     }
+
     
-    
-    public func getTimeInAmPmFormat(fullTime: String) -> String{
-        let time = fullTime.components(separatedBy: ":")[0]
-        let intTime = Int(time)
-        if intTime! < 12{
-            return time.replacingOccurrences(of: "0", with: "") + "AM"
-        }else{
-            if intTime != 12{
-                return String(intTime! - 12) + "PM"
-            }
-            return time + "PM"
+    public func getTimeIn12HrFormat(fullTime:String) -> String {
+        let hour = Int(fullTime.components(separatedBy: ":")[0])
+        if hour == 0 {
+            return "12AM"
+        }
+        else if hour == 12 {
+            return "12PM"
+        }
+        else if hour! < 12 {
+            return String(hour!) + "AM"
+        }
+        else {
+            return String(hour! - 12) + "PM"
         }
     }
 

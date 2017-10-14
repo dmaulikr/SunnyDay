@@ -83,7 +83,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UITextFiel
         
       return currentWeather
     }
-    
+
     
     func cacheData(forecastJson: NSDictionary) {
         let userDefaults = UserDefaults.standard
@@ -130,12 +130,20 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UITextFiel
     }
     
     func createGradientLayer() {
-        var gradientLayer:CAGradientLayer!
-        gradientLayer = CAGradientLayer()
-        gradientLayer.frame = self.view.bounds
-        gradientLayer.colors = [UIColor(red:0.17, green:0.24, blue:0.31, alpha:1.0).cgColor,
-                                UIColor(red:0.30, green:0.63, blue:0.69, alpha:1.0).cgColor]
-        self.view.layer.addSublayer(gradientLayer)
+//        var gradientLayer:CAGradientLayer!
+//        gradientLayer = CAGradientLayer()
+//        gradientLayer.frame = self.view.bounds
+//        gradientLayer.colors = [UIColor(red:0.17, green:0.24, blue:0.31, alpha:1.0).cgColor,
+//                                UIColor(red:0.30, green:0.63, blue:0.69, alpha:1.0).cgColor]
+//        self.view.layer.addSublayer(gradientLayer)
+        
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "forest.png")!)
+//        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+//        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+//        blurEffectView.frame = view.bounds
+//        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        self.view.addSubview(blurEffectView)
+        
     }
     
     func setIconForCondition(condition: String)-> UIImage {

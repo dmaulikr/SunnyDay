@@ -77,7 +77,9 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         return pages[nextIndex]
     }
     
-    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     
     
